@@ -18,6 +18,9 @@ import java.awt.SystemColor;
 import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FundWebSema {
 
@@ -61,7 +64,7 @@ public class FundWebSema {
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setForeground(Color.BLACK);
-		menuBar.setBackground(Color.LIGHT_GRAY);
+		menuBar.setBackground(UIManager.getColor("MenuItem.disabledForeground"));
 		frmFundamentosDeLa.setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("Archivo");
@@ -72,6 +75,12 @@ public class FundWebSema {
 		mnFile.add(mntmGuardar);
 		
 		JMenuItem mntmConfigurarEndpoints = new JMenuItem("Configurar EndPoints");
+		mntmConfigurarEndpoints.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ConfigurarEndPoints.main(null);
+			}
+		});
 		mnFile.add(mntmConfigurarEndpoints);
 		
 		JMenuItem mntmCerrrar = new JMenuItem("Salir");
@@ -99,6 +108,13 @@ public class FundWebSema {
 		resultsPnl.setBackground(Color.DARK_GRAY);
 		resultsPnl.setBounds(0, 179, 1342, 498);
 		frmFundamentosDeLa.getContentPane().add(resultsPnl);
+		resultsPnl.setLayout(null);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setEnabled(false);
+		textArea.setBounds(10, 5, 1322, 482);
+		resultsPnl.add(textArea);
 		
 		
 		
@@ -109,7 +125,7 @@ public class FundWebSema {
 		intoPnl.add(lblBuscar);
 		
 		textField = new JTextField();
-		textField.setBounds(270, 106, 552, 20);
+		textField.setBounds(270, 106, 835, 20);
 		intoPnl.add(textField);
 		textField.setColumns(10);
 		
