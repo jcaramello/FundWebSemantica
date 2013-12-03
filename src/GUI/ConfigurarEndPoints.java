@@ -27,6 +27,7 @@ import common.Logger;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dialog.ModalExclusionType;
 
 public class ConfigurarEndPoints extends JDialog {
 
@@ -56,6 +57,9 @@ public class ConfigurarEndPoints extends JDialog {
 	 * @throws IOException 
 	 */
 	public ConfigurarEndPoints() throws IOException {
+		setResizable(false);
+		setModal(true);
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setTitle("Configurar EndPoints");
 		ConfigurarEndPoints.CurrentDialog = this;
 		setBounds(100, 100, 450, 300);
@@ -74,14 +78,14 @@ public class ConfigurarEndPoints extends JDialog {
 		}
 		{
 			newEndpoint = new JTextField();
-			newEndpoint.setBounds(10, 33, 312, 20);
+			newEndpoint.setBounds(10, 33, 325, 20);
 			contentPanel.add(newEndpoint);
 			newEndpoint.setColumns(10);
 		}
 		
 		JButton btnAgregar = new JButton("Agregar");
 		
-		btnAgregar.setBounds(332, 32, 89, 23);
+		btnAgregar.setBounds(345, 32, 89, 23);
 		contentPanel.add(btnAgregar);
 		
 		list = new JList<String>();											
@@ -95,7 +99,7 @@ public class ConfigurarEndPoints extends JDialog {
 		list.setModel(model);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setVisibleRowCount(10);
-		list.setBounds(10, 64, 411, 154);
+		list.setBounds(10, 64, 424, 154);
 		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -116,21 +120,7 @@ public class ConfigurarEndPoints extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						
-						//TODO: Save the endpoint
-						ConfigurarEndPoints.CurrentDialog.setVisible(false);
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cerrar");
 				cancelButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
@@ -145,6 +135,7 @@ public class ConfigurarEndPoints extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		this.setLocationRelativeTo(null);
 	}
 	
 	public void addEndpoint() throws IOException{
