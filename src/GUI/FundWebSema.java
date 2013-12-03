@@ -19,25 +19,41 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+
+import common.Application;
+import common.Logger;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FundWebSema {
 
 	private JFrame frmFundamentosDeLa;
 	private JTextField textField;
-
+	public static FundWebSema CurrentWindow;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
+		Application.Initialize(args);
+					
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					FundWebSema window = new FundWebSema();
+					FundWebSema.CurrentWindow = window;
 					window.frmFundamentosDeLa.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					Logger.log(e.getMessage());					
+				}
+				finally{
+					Logger.close();
 				}
 			}
 		});
@@ -75,15 +91,22 @@ public class FundWebSema {
 		mnFile.add(mntmGuardar);
 		
 		JMenuItem mntmConfigurarEndpoints = new JMenuItem("Configurar EndPoints");
-		mntmConfigurarEndpoints.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ConfigurarEndPoints.main(null);
+		mntmConfigurarEndpoints.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(ConfigurarEndPoints.CurrentDialog == null)
+					ConfigurarEndPoints.main(null);
+				else ConfigurarEndPoints.CurrentDialog.setVisible(true);
 			}
 		});
+				
 		mnFile.add(mntmConfigurarEndpoints);
 		
 		JMenuItem mntmCerrrar = new JMenuItem("Salir");
+		mntmCerrrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FundWebSema.CurrentWindow.close();
+			}
+		});
 		mnFile.add(mntmCerrrar);
 		
 		JMenu mnHelp = new JMenu("Ayuda");
@@ -140,7 +163,13 @@ public class FundWebSema {
 		JSeparator separator = new JSeparator();
 		separator.setBackground(new Color(30, 144, 255));
 		separator.setForeground(new Color(30, 144, 255));
-		separator.setBounds(10, 169, 1322, 17);
+		separator.setBounds(10, 169, 1322, 2);
 		frmFundamentosDeLa.getContentPane().add(separator);
 	}
+	
+	public void close()
+	{
+		frmFundamentosDeLa.dispose();
+	}
+	
 }

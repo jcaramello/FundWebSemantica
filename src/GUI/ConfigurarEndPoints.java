@@ -3,9 +3,11 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JList;
@@ -14,15 +16,27 @@ import java.awt.Font;
 import javax.swing.AbstractListModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
+
+import common.Application;
+import common.Logger;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ConfigurarEndPoints extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	
-	protected static ConfigurarEndPoints CurrentDialog;
-	private JTextField textField;
+	public static ConfigurarEndPoints CurrentDialog;
+	private JTextField newEndpoint;
+	
+	public JList<String> list;
+	public JLabel lblIngreseLosEndpoints;
 
 	/**
 	 * Launch the application.
@@ -39,8 +53,9 @@ public class ConfigurarEndPoints extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @throws IOException 
 	 */
-	public ConfigurarEndPoints() {
+	public ConfigurarEndPoints() throws IOException {
 		setTitle("Configurar EndPoints");
 		ConfigurarEndPoints.CurrentDialog = this;
 		setBounds(100, 100, 450, 300);
@@ -49,39 +64,52 @@ public class ConfigurarEndPoints extends JDialog {
 		contentPanel.setBackground(Color.DARK_GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		contentPanel.setLayout(null);		
 		{
-			JList list = new JList();
-			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			list.setModel(new AbstractListModel() {
-				String[] values = new String[] {" http://dbpedia.org/sparql"};
-				public int getSize() {
-					return values.length;
-				}
-				public Object getElementAt(int index) {
-					return values[index];
-				}
-			});
-			list.setBounds(414, 199, -393, -105);
-			contentPanel.add(list);
-		}
-		{
-			JLabel lblIngreseLosEndpoints = new JLabel("Ingrese los endpoints a los que desea conectarse:");
+			lblIngreseLosEndpoints = new JLabel("Ingrese los endpoints a los que desea conectarse:");
 			lblIngreseLosEndpoints.setForeground(new Color(30, 144, 255));
 			lblIngreseLosEndpoints.setFont(new Font("Tahoma", Font.BOLD, 12));
 			lblIngreseLosEndpoints.setBounds(10, 11, 389, 25);
 			contentPanel.add(lblIngreseLosEndpoints);
 		}
 		{
-			textField = new JTextField();
-			textField.setBounds(10, 33, 312, 20);
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			newEndpoint = new JTextField();
+			newEndpoint.setBounds(10, 33, 312, 20);
+			contentPanel.add(newEndpoint);
+			newEndpoint.setColumns(10);
 		}
 		
 		JButton btnAgregar = new JButton("Agregar");
+		
 		btnAgregar.setBounds(332, 32, 89, 23);
 		contentPanel.add(btnAgregar);
+		
+		list = new JList<String>();											
+		String[] endpoints = Application.getEndPoints();
+		DefaultListModel<String> model = new DefaultListModel<>();
+		
+		for (String endpoint : endpoints) {
+			model.addElement(endpoint);
+		}
+		
+		list.setModel(model);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setVisibleRowCount(10);
+		list.setBounds(10, 64, 411, 154);
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					ConfigurarEndPoints.CurrentDialog.addEndpoint();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Logger.log(e.getMessage());
+				}
+			}
+		});
+		
+		contentPanel.add(list);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(Color.DARK_GRAY);
@@ -94,7 +122,7 @@ public class ConfigurarEndPoints extends JDialog {
 					public void mouseClicked(MouseEvent arg0) {
 						
 						//TODO: Save the endpoint
-						ConfigurarEndPoints.CurrentDialog.dispose();
+						ConfigurarEndPoints.CurrentDialog.setVisible(false);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -107,7 +135,7 @@ public class ConfigurarEndPoints extends JDialog {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 						
-						ConfigurarEndPoints.CurrentDialog.dispose();
+						ConfigurarEndPoints.CurrentDialog.setVisible(false);
 					}
 				});
 				
@@ -116,6 +144,19 @@ public class ConfigurarEndPoints extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+	}
+	
+	public void addEndpoint() throws IOException{
+		DefaultListModel<String> model = (DefaultListModel<String>)list.getModel();
+		if(!newEndpoint.getText().equals("")){
+			model.addElement(newEndpoint.getText());
+			
+			
+			list.setModel(model);
+			list.repaint();
+			Application.SaveEndpoint(newEndpoint.getText());
+			newEndpoint.setText("");
 		}
 	}
 }
