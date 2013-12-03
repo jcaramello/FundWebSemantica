@@ -3,6 +3,7 @@ package GUI;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -30,16 +31,26 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import javax.swing.text.rtf.RTFEditorKit;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
 
 public class FundWebSema {
 
-	private JFrame frmFundamentosDeLa;
+	public JFrame frmFundamentosDeLa;
 	private JTextField textField;
 	public static FundWebSema CurrentWindow;
+	private final JButton searchBtn = new JButton("Buscar");
+	private JLayeredPane mainPnl;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {		
+	public static void main(String[] args) {				
 		Application.Initialize(args);
 					
 		EventQueue.invokeLater(new Runnable() {
@@ -48,6 +59,7 @@ public class FundWebSema {
 					FundWebSema window = new FundWebSema();
 					FundWebSema.CurrentWindow = window;
 					window.frmFundamentosDeLa.setVisible(true);
+					window.frmFundamentosDeLa.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 					Logger.log(e.getMessage());					
@@ -74,8 +86,8 @@ public class FundWebSema {
 		frmFundamentosDeLa.getContentPane().setForeground(new Color(30, 144, 255));
 		frmFundamentosDeLa.getContentPane().setBackground(Color.DARK_GRAY);
 		frmFundamentosDeLa.setTitle("Fundamentos de la WebSem\u00E1ntica - Proyecto Final (2013)");
-		//frame.setBounds(100, 100, 450, 300);
-		frmFundamentosDeLa.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frmFundamentosDeLa.setBounds(100, 100, 816, 788);
+		//frmFundamentosDeLa.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmFundamentosDeLa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -118,37 +130,20 @@ public class FundWebSema {
 		
 		JMenuItem mntmAcercaDe = new JMenuItem("Acerca de");
 		mnHelp.add(mntmAcercaDe);
-		frmFundamentosDeLa.getContentPane().setLayout(null);
+		frmFundamentosDeLa.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		mainPnl = new JLayeredPane();
+		frmFundamentosDeLa.getContentPane().add(mainPnl, BorderLayout.CENTER);
+		mainPnl.setLayout(null);
 		
 		JPanel intoPnl = new JPanel();
+		intoPnl.setBounds(0, 0, 787, 158);
+		mainPnl.add(intoPnl);
 		intoPnl.setBackground(Color.DARK_GRAY);
-		intoPnl.setBounds(0, 0, 1342, 158);
-	
-		frmFundamentosDeLa.getContentPane().add(intoPnl);
 		intoPnl.setLayout(null);
 		
-		JPanel resultsPnl = new JPanel();
-		resultsPnl.setBackground(Color.DARK_GRAY);
-		resultsPnl.setBounds(0, 179, 1342, 498);
-		frmFundamentosDeLa.getContentPane().add(resultsPnl);
-		resultsPnl.setLayout(null);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setEnabled(false);
-		textArea.setBounds(10, 5, 1322, 482);
-		resultsPnl.add(textArea);
-		
-		
-		
-		JLabel lblBuscar = new JLabel("Buscar: ");
-		lblBuscar.setForeground(new Color(30, 144, 255));
-		lblBuscar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblBuscar.setBounds(189, 101, 82, 27);
-		intoPnl.add(lblBuscar);
-		
 		textField = new JTextField();
-		textField.setBounds(270, 106, 835, 20);
+		textField.setBounds(181, 106, 283, 20);
 		intoPnl.add(textField);
 		textField.setColumns(10);
 		
@@ -157,14 +152,42 @@ public class FundWebSema {
 		txtpnLoremIpsumDolor.setBackground(Color.DARK_GRAY);
 		txtpnLoremIpsumDolor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtpnLoremIpsumDolor.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tristique pretium scelerisque. Vivamus mauris arcu, euismod varius varius a, feugiat eu justo. Curabitur sed nisi accumsan ligula viverra euismod. Integer vitae metus velit. Morbi luctus dui elit, sed facilisis magna posuere vitae. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris rhoncus ultrices malesuada. Integer euismod, sem eu hendrerit ultrices, turpis urna vehicula erat, nec consectetur nulla mauris vitae mauris. Pellentesque nisi lectus, molestie et nulla quis, rutrum volutpat ipsum.");
-		txtpnLoremIpsumDolor.setBounds(28, 11, 1304, 79);
+		txtpnLoremIpsumDolor.setBounds(28, 11, 749, 79);
 		intoPnl.add(txtpnLoremIpsumDolor);
+		searchBtn.setBounds(0, 0, 0, 0);
+		intoPnl.add(searchBtn);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				FundWebSema.CurrentWindow.showLoadingMask();
+			}
+		});
+		btnBuscar.setBounds(474, 105, 89, 23);
+		intoPnl.add(btnBuscar);
+		
+		JPanel resultsPnl = new JPanel();
+		resultsPnl.setBounds(0, 179, 798, 498);
+		mainPnl.add(resultsPnl);
+		resultsPnl.setBackground(Color.DARK_GRAY);
+		resultsPnl.setLayout(null);
+		
+		JTextPane textArea = new JTextPane();
+		textArea.setEditable(false);
+		textArea.setEnabled(false);
+		RTFEditorKit rtf = new RTFEditorKit();
+		textArea.setEditorKit(rtf);
+		textArea.setBounds(10, 5, 779, 482);
+		resultsPnl.add(textArea);
+		
+		
 		
 		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 169, 777, 2);
+		mainPnl.add(separator);
 		separator.setBackground(new Color(30, 144, 255));
 		separator.setForeground(new Color(30, 144, 255));
-		separator.setBounds(10, 169, 1322, 2);
-		frmFundamentosDeLa.getContentPane().add(separator);
 	}
 	
 	public void close()
@@ -172,4 +195,7 @@ public class FundWebSema {
 		frmFundamentosDeLa.dispose();
 	}
 	
+	public void showLoadingMask(){
+		LoadingMask.main(this.frmFundamentosDeLa);
+	}
 }
