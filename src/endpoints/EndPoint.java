@@ -1,9 +1,12 @@
 package endpoints;
 
+import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution; 
 import com.hp.hpl.jena.query.QueryExecutionFactory; 
+import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution; 
 import com.hp.hpl.jena.query.ResultSet;
+
 import common.Logger;
 
 public class EndPoint {
@@ -12,10 +15,11 @@ public class EndPoint {
 	
 	public static void main(String[] args) {
 	    String service = "http://dbpedia.org/sparql";
-	    String query = "select count(*) where { ?s ?p ?o . FILTER regex(str(?o) , \"^%s\", \"i\"). FILTER langMatches(lang(?o), \"ES\" ). } LIMIT 100";
-	    query =  String.format(query, "Obama");
+	    String queryString = "select distinct ?Concept where {[] a ?Concept FILTER regex(?Concept , \"Obama\", \"i\")} LIMIT 100";
+	    //queryString =  String.format(queryString, "Obama");
 	    
 	    try {
+	    	Query query = QueryFactory.create(queryString);
 	    	qe = QueryExecutionFactory.sparqlService(service, query);
 	    	ResultSet results = qe.execSelect();
 
