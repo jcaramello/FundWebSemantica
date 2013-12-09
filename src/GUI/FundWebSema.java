@@ -182,11 +182,9 @@ public class FundWebSema {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				FundWebSema.CurrentWindow.showLoadingMask();
-								
-
-			     Runnable r = new Runnable() {
+				textArea.setText("");		
+				FundWebSema.CurrentWindow.showLoadingMask();								
+			    Runnable r = new Runnable() {
 					public void run() {
 						try {
 							List<String> results = EndPoint.main(Arrays.asList(textField.getText().split(" ")));	
