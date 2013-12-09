@@ -27,8 +27,11 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+
+import common.Logger;
 
 public class LoadingMask extends JDialog {
 
@@ -43,14 +46,19 @@ public class LoadingMask extends JDialog {
 		LoadingMask.ParentWindow = parent;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					LoadingMask frame = new LoadingMask();					
-					frame.setVisible(true);					
+				try {					
+					LoadingMask frame = new LoadingMask();
+					LoadingMask.CurrentWindow = frame;
+					LoadingMask.CurrentWindow.setVisible(true);	
 				} catch (Exception e) {
 					e.printStackTrace();
+					Logger.log(e.getMessage());					
+				}
+				finally{
+					Logger.close();
 				}
 			}
-		});
+		});					
 	}
 
 	/**

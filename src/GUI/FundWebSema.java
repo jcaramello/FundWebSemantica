@@ -4,40 +4,60 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+
 import java.awt.SystemColor;
 import java.awt.Color;
+
 import javax.swing.UIManager;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 
 import common.Application;
+import common.CommonHelper;
 import common.Logger;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.text.rtf.RTFEditorKit;
 
+import endpoints.EndPoint;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
+
+import javax.swing.ScrollPaneConstants;
+
+import java.awt.Dimension;
 
 public class FundWebSema {
 
@@ -46,6 +66,7 @@ public class FundWebSema {
 	public static FundWebSema CurrentWindow;
 	private final JButton searchBtn = new JButton("Buscar");
 	private JLayeredPane mainPnl;
+	private JTextArea textArea;
 	
 	/**
 	 * Launch the application.
@@ -163,31 +184,50 @@ public class FundWebSema {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				FundWebSema.CurrentWindow.showLoadingMask();
+								
+
+			     Runnable r = new Runnable() {
+					public void run() {
+						try {
+							List<String> results = EndPoint.main(Arrays.asList(textField.getText().split(" ")));	
+							textArea.setText(CommonHelper.joinResults(results));													
+							FundWebSema.CurrentWindow.hideLoadingMask();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+			     };
+			     
+			     ExecutorService executor = Executors.newCachedThreadPool();
+			     executor.submit(r);
 			}
 		});
 		btnBuscar.setBounds(688, 124, 89, 23);
 		intoPnl.add(btnBuscar);
-		
+
 		JLabel lblProyetoFinal = new JLabel(" Proyeto Final");
 		lblProyetoFinal.setForeground(new Color(30, 144, 255));
 		lblProyetoFinal.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblProyetoFinal.setBounds(10, 0, 175, 28);
 		intoPnl.add(lblProyetoFinal);
 		
-		JPanel resultsPnl = new JPanel();
+		JScrollPane resultsPnl = new JScrollPane();
+		resultsPnl.setMaximumSize(new Dimension(798, 498));
+		resultsPnl.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		resultsPnl.setBounds(0, 179, 798, 498);
 		mainPnl.add(resultsPnl);
 		resultsPnl.setBackground(Color.DARK_GRAY);
 		resultsPnl.setLayout(null);
 		
-		JTextPane textArea = new JTextPane();
-		textArea.setEditable(false);
+		textArea = new JTextArea();
+		textArea.setDisabledTextColor(Color.BLACK);
 		textArea.setEnabled(false);
-		RTFEditorKit rtf = new RTFEditorKit();
-		textArea.setEditorKit(rtf);
+		textArea.setEditable(false);
+		textArea.setMaximumSize(new Dimension(798, 498));
+		textArea.setWrapStyleWord(true);
+		textArea.setForeground(Color.BLACK);
 		textArea.setBounds(10, 5, 779, 482);
-		resultsPnl.add(textArea);
-		
+		resultsPnl.add(textArea);		
 		
 		
 		JSeparator separator = new JSeparator();
@@ -222,5 +262,9 @@ public class FundWebSema {
 	
 	public void showLoadingMask(){
 		LoadingMask.main(this.frmFundamentosDeLa);
+	}
+	
+	public void hideLoadingMask(){
+		LoadingMask.CurrentWindow.dispose();
 	}
 }
