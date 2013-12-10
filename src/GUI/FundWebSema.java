@@ -66,6 +66,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.awt.ComponentOrientation;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FundWebSema {
 
@@ -173,6 +175,14 @@ public class FundWebSema {
 		intoPnl.setLayout(null);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int key = arg0.getKeyCode();
+				if(key == KeyEvent.VK_ENTER)
+					search();
+			}
+		});
 		textField.setBounds(10, 138, 668, 20);
 		intoPnl.add(textField);
 		textField.setColumns(10);
@@ -194,30 +204,7 @@ public class FundWebSema {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				textArea.setText("");
-				searchBtn.setEnabled(false);
-				FundWebSema.CurrentWindow.showLoadingMask();								
-			    Runnable r = new Runnable() {
-					public void run() {
-						try {
-							String[] keywords = textField.getText().split(" ");
-							List<String> results = EndPoint.main(Arrays.asList(keywords));	
-							textArea.setText(CommonHelper.joinResults(results));
-							
-							for (String pattern : keywords) {
-								highlight(textArea, pattern);	
-							}
-							
-							FundWebSema.CurrentWindow.hideLoadingMask();
-							searchBtn.setEnabled(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-			     };
-			     
-			     ExecutorService executor = Executors.newCachedThreadPool();
-			     executor.submit(r);
+				search();				
 			}
 		});
 		btnBuscar.setBounds(688, 137, 89, 23);
@@ -291,8 +278,9 @@ public class FundWebSema {
 
 	    try {
 	        Highlighter hilite = textComp.getHighlighter();
+	        pattern = pattern.toLowerCase();
 	        javax.swing.text.Document doc = textComp.getDocument();
-	        String text = doc.getText(0, doc.getLength());
+	        String text = doc.getText(0, doc.getLength()).toLowerCase();
 	        int pos = 0;
 	        Highlighter.HighlightPainter myHighlightPainter = new MyHighlightPainter(Color.YELLOW);
 	        // Search for pattern
@@ -306,4 +294,32 @@ public class FundWebSema {
 	    } catch (BadLocationException e) {
 	    }
 	}	
+	
+	public void search(){
+		
+		textArea.setText("");
+		searchBtn.setEnabled(false);
+		FundWebSema.CurrentWindow.showLoadingMask();								
+	    Runnable r = new Runnable() {
+			public void run() {
+				try {
+					String[] keywords = textField.getText().split(" ");
+					List<String> results = EndPoint.main(Arrays.asList(keywords));	
+					textArea.setText(CommonHelper.joinResults(results));
+					
+					for (String pattern : keywords) {
+						highlight(textArea, pattern);	
+					}
+					
+					FundWebSema.CurrentWindow.hideLoadingMask();
+					searchBtn.setEnabled(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+	     };
+	     
+	     ExecutorService executor = Executors.newCachedThreadPool();
+	     executor.submit(r);				
+	}
 }
