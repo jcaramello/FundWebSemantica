@@ -49,6 +49,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
 import javax.swing.text.rtf.RTFEditorKit;
 
 import endpoints.EndPoint;
@@ -196,8 +200,14 @@ public class FundWebSema {
 			    Runnable r = new Runnable() {
 					public void run() {
 						try {
-							List<String> results = EndPoint.main(Arrays.asList(textField.getText().split(" ")));	
-							textArea.setText(CommonHelper.joinResults(results));													
+							String[] keywords = textField.getText().split(" ");
+							List<String> results = EndPoint.main(Arrays.asList(keywords));	
+							textArea.setText(CommonHelper.joinResults(results));
+							
+							for (String pattern : keywords) {
+								highlight(textArea, pattern);	
+							}
+							
 							FundWebSema.CurrentWindow.hideLoadingMask();
 							searchBtn.setEnabled(true);
 						} catch (Exception e) {
@@ -233,8 +243,7 @@ public class FundWebSema {
 		textArea.setEditable(false);		
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
-		textArea.setForeground(Color.BLACK);
-		
+		textArea.setForeground(Color.BLACK);		
 		
 		JScrollPane resultsPnl = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		resultsPnl.setBounds(new Rectangle(0, 0, 767, 495));
@@ -277,4 +286,24 @@ public class FundWebSema {
 	public void hideLoadingMask(){
 		LoadingMask.CurrentWindow.dispose();
 	}
+	
+	public static void highlight(JTextComponent textComp, String pattern) {
+
+	    try {
+	        Highlighter hilite = textComp.getHighlighter();
+	        javax.swing.text.Document doc = textComp.getDocument();
+	        String text = doc.getText(0, doc.getLength());
+	        int pos = 0;
+	        Highlighter.HighlightPainter myHighlightPainter = new MyHighlightPainter(Color.YELLOW);
+	        // Search for pattern
+	        	       		
+        	while ((pos = text.indexOf(pattern, pos)) >= 0) {
+	            // Create highlighter using private painter and apply around pattern
+	            hilite.addHighlight(pos, pos + pattern.length(), myHighlightPainter);
+	            pos += pattern.length();
+	        }
+				       
+	    } catch (BadLocationException e) {
+	    }
+	}	
 }
