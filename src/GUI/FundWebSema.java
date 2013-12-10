@@ -169,7 +169,7 @@ public class FundWebSema {
 		intoPnl.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(10, 127, 668, 20);
+		textField.setBounds(10, 138, 668, 20);
 		intoPnl.add(textField);
 		textField.setColumns(10);
 		
@@ -177,8 +177,12 @@ public class FundWebSema {
 		txtpnLoremIpsumDolor.setForeground(new Color(30, 144, 255));
 		txtpnLoremIpsumDolor.setBackground(Color.DARK_GRAY);
 		txtpnLoremIpsumDolor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtpnLoremIpsumDolor.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tristique pretium scelerisque. Vivamus mauris arcu, euismod varius varius a, feugiat eu justo. Curabitur sed nisi accumsan ligula viverra euismod. Integer vitae metus velit. Morbi luctus dui elit, sed facilisis magna posuere vitae. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris rhoncus ultrices malesuada. Integer euismod, sem eu hendrerit ultrices, turpis urna vehicula erat, nec consectetur nulla mauris vitae mauris. Pellentesque nisi lectus, molestie et nulla quis, rutrum volutpat ipsum.");
-		txtpnLoremIpsumDolor.setBounds(10, 34, 767, 79);
+		txtpnLoremIpsumDolor.setText("El objtivo de este proyeto final es desarrollar una aplicacion a modo de prueba de concepto donde" + 
+									 "pudiera aplicar los conocimientos adquiridos sobre la web semantica y que ademas sirviera para comenzar a aprender " +
+									 "y familiarizarme con el framework Apache Jena de Apache Foundations.\n\n"+ 
+									 "La aplicacion basicamente consiste en front-end para realizar consultas a DBpedia utilizando SparQL. PAra comenzar debe ingresar 1 o mas keywords "+
+									 "y se consultara a BDpedia por cualquier tipo de contenido en el cual se haga referencia a las keywords ingresadas");
+		txtpnLoremIpsumDolor.setBounds(10, 34, 767, 96);
 		intoPnl.add(txtpnLoremIpsumDolor);
 		searchBtn.setBounds(0, 0, 0, 0);
 		intoPnl.add(searchBtn);
@@ -206,7 +210,7 @@ public class FundWebSema {
 			     executor.submit(r);
 			}
 		});
-		btnBuscar.setBounds(688, 124, 89, 23);
+		btnBuscar.setBounds(688, 137, 89, 23);
 		intoPnl.add(btnBuscar);
 
 		JLabel lblProyetoFinal = new JLabel(" Proyeto Final");
@@ -219,22 +223,20 @@ public class FundWebSema {
 		panel.setSize(new Dimension(798, 498));
 		panel.setBounds(new Rectangle(0, 0, 798, 498));
 		panel.setBounds(10, 182, 777, 495);
-		mainPnl.add(panel);
-		/*textArea.setDisabledTextColor(Color.BLACK);
+		mainPnl.add(panel);			
+		panel.setLayout(null);
+				
+		textArea = new JTextArea();
+		textArea.setBounds(new Rectangle(10, 182, 777, 495));
+		textArea.setDisabledTextColor(Color.BLACK);
 		textArea.setEnabled(false);
 		textArea.setEditable(false);		
 		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
 		textArea.setForeground(Color.BLACK);
-		textArea.setBounds(10, 5, 779, 482);*/
-		panel.setLayout(null);
 		
 		
-		
-		textArea = new JTextArea();
-		textArea.setBounds(new Rectangle(10, 182, 777, 495));
-		
-		
-		JScrollPane resultsPnl = new JScrollPane(textArea);
+		JScrollPane resultsPnl = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		resultsPnl.setBounds(new Rectangle(0, 0, 767, 495));
 		panel.add(resultsPnl);
 		

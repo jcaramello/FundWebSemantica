@@ -13,6 +13,7 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution; 
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP;
 
 import common.Application;
 import common.CommonHelper;
@@ -36,46 +37,33 @@ public class EndPoint {
 							 "}Limit %d";
 	    
 	    */
-		
-			
-		String queryString = "select ?s1 as ?c1, ( bif:search_excerpt ( bif:vector ( %s ) , ?o1 ) ) as ?c2, ?sc, ?rank, ?g where " + 
-							  "{ "+ 
-							    "{ "+ 
-							    "{ "+ 
-							        "select ?s1, ( ?sc * 3e-1 ) as ?sc, ?o1, ( sql:rnk_scale ( <LONG::IRI_RANK> ( ?s1 ) ) ) as ?rank, ?g where "+ 
-							        "{ "+
-							          "quad map virtrdf:DefaultQuadMap "+ 
-							          "{ "+
-							            "graph ?g "+ 
-							            "{ "+ 
-							              "?s1 ?s1textp ?o1 . "+
-							              "?o1 bif:contains ' ( %s ) ' option ( score ?sc ) . "+				              
-							            "} "+
-							           "} "+
-							         "} "+
-							       "order by desc ( ?sc * 3e-1 + sql:rnk_scale ( <LONG::IRI_RANK> ( ?s1 ) ) ) limit %d offset 0 "+ 
-							      "} "+
-							    "} "+
-							  "} ";
-	    
-		
-
-		//'STEFANO', 'DI', 'ALFREDO'		
-		String kw_1 = CommonHelper.join(keywords, ",", "\'");
+			 
+		String queryString = 			
+					"select  ?o1 " +
+					"where "+ 
+					"{ "+ 									
+						"{ graph ?g "+
+							"{ "+ 
+								"?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( %s ) '. "+ 
+							"} "+ 
+						"} "+ 
+						"FILTER(LANG(?o1)='es') "+
+					"} Limit %d";
+		 
+					
 		//STEFANO AND DI AND ALFREDO
-		String kw_2 = CommonHelper.join(keywords, " AND ");
-	    queryString =  String.format(queryString, kw_1, kw_2, Application.LimitResults);
+		String formatedKeywords = CommonHelper.join(keywords, " AND ");
+	    queryString =  String.format(queryString, formatedKeywords, Application.LimitResults);
 	    
 	    try {
-	    	Query query = QueryFactory.create(queryString);
-	    	ARQ.getContext().setTrue(ARQ.useSAX);
-	    	qe = QueryExecutionFactory.sparqlService(service, query);
+	    	Query query = QueryFactory.create(queryString);	    	
+	    	qe = new QueryEngineHTTP(service, query);	    	
 	    	ResultSet resultSet = qe.execSelect();
 
 	    	while(resultSet.hasNext()){
 
 	            QuerySolution sol = (QuerySolution) resultSet.next();	           
-	            results.add(sol.get("?c2").toString());	            	          	            	    
+	            results.add(sol.get("?o1").toString().replaceAll("@es", ""));	            	          	            	    
 			}	
 	      
 	    }catch(Exception e){
