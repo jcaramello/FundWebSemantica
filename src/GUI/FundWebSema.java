@@ -21,6 +21,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import java.awt.LayoutManager;
 import java.awt.SystemColor;
 import java.awt.Color;
 
@@ -58,6 +59,9 @@ import java.awt.Component;
 import javax.swing.ScrollPaneConstants;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Rectangle;
+import java.awt.ComponentOrientation;
 
 public class FundWebSema {
 
@@ -182,7 +186,8 @@ public class FundWebSema {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				textArea.setText("");		
+				textArea.setText("");
+				searchBtn.setEnabled(false);
 				FundWebSema.CurrentWindow.showLoadingMask();								
 			    Runnable r = new Runnable() {
 					public void run() {
@@ -190,6 +195,7 @@ public class FundWebSema {
 							List<String> results = EndPoint.main(Arrays.asList(textField.getText().split(" ")));	
 							textArea.setText(CommonHelper.joinResults(results));													
 							FundWebSema.CurrentWindow.hideLoadingMask();
+							searchBtn.setEnabled(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -209,24 +215,28 @@ public class FundWebSema {
 		lblProyetoFinal.setBounds(10, 0, 175, 28);
 		intoPnl.add(lblProyetoFinal);
 		
-		JScrollPane resultsPnl = new JScrollPane();
-		resultsPnl.setMaximumSize(new Dimension(798, 498));
-		resultsPnl.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		resultsPnl.setBounds(0, 179, 798, 498);
-		mainPnl.add(resultsPnl);
-		resultsPnl.setBackground(Color.DARK_GRAY);
-		resultsPnl.setLayout(null);
-		
-		textArea = new JTextArea();
-		textArea.setDisabledTextColor(Color.BLACK);
+		JPanel panel = new JPanel();
+		panel.setSize(new Dimension(798, 498));
+		panel.setBounds(new Rectangle(0, 0, 798, 498));
+		panel.setBounds(10, 182, 777, 495);
+		mainPnl.add(panel);
+		/*textArea.setDisabledTextColor(Color.BLACK);
 		textArea.setEnabled(false);
-		textArea.setEditable(false);
-		textArea.setMaximumSize(new Dimension(798, 498));
+		textArea.setEditable(false);		
 		textArea.setWrapStyleWord(true);
 		textArea.setForeground(Color.BLACK);
-		textArea.setBounds(10, 5, 779, 482);
-		resultsPnl.add(textArea);		
+		textArea.setBounds(10, 5, 779, 482);*/
+		panel.setLayout(null);
 		
+		
+		
+		textArea = new JTextArea();
+		textArea.setBounds(new Rectangle(10, 182, 777, 495));
+		
+		
+		JScrollPane resultsPnl = new JScrollPane(textArea);
+		resultsPnl.setBounds(new Rectangle(0, 0, 767, 495));
+		panel.add(resultsPnl);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 169, 777, 2);

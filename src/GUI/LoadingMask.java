@@ -107,7 +107,7 @@ public class LoadingMask extends JDialog {
 		btnCancelar.setBounds(335, 97, 89, 23);
 		contentPane.add(btnCancelar);
 		
-		JLabel lblPorFavorEspere = new JLabel("Por favor espere, la operacion puede tardar unos segundos");
+		JLabel lblPorFavorEspere = new JLabel("Por favor espere, la operacion puede tardar unos minutos");
 		lblPorFavorEspere.setForeground(new Color(30, 144, 255));
 		lblPorFavorEspere.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblPorFavorEspere.setBounds(10, 11, 430, 24);

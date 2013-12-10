@@ -8,7 +8,7 @@ public class CommonHelper {
 
 	
 	public static String joinResults(List<String> s) {
-	    if (s == null || s.isEmpty()) return "";
+	    if (s == null || s.isEmpty()) return "No se encontraron resultados";
 	    Iterator<String> iter = s.iterator();
 	    String formatResult = "%d) %s \n --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n";
 	    
@@ -22,13 +22,21 @@ public class CommonHelper {
 	    return builder.toString();
 	}
 	
+	
 	public static String join(List<String> s, String delimiter) {
-	    if (s == null || s.isEmpty()) return "";
+		return join(s, delimiter, null);
+	}
+	
+	public static String join(List<String> s, String delimiter, String surrounded) {
+	    
+		if(surrounded == null) surrounded = "";
+		if (s == null || s.isEmpty()) return "";
 	    Iterator<String> iter = s.iterator();
-	    StringBuilder builder = new StringBuilder(iter.next());
+	    StringBuilder builder = new StringBuilder(surrounded + iter.next() + surrounded);
 	    while( iter.hasNext() )
 	    {
-	        builder.append(delimiter).append(iter.next());
+	    	
+	        builder.append(delimiter).append(surrounded).append(iter.next()).append(surrounded);
 	    }
 	    return builder.toString();
 	}
