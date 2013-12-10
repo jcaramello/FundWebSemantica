@@ -115,8 +115,7 @@ public class Application {
 			fstream = new FileWriter(endpointsFile, false);
 			bufferedWriter = new BufferedWriter(fstream);
 			
-			endpoints.add("http://dbpedia.org/sparql");
-			endpoints.add("https://www.google.com.ar/");
+			endpoints.add("http://dbpedia.org/sparql");			
 			for (String endpoint : endpoints) {
 				bufferedWriter.write(endpoint);	
 				bufferedWriter.newLine();	

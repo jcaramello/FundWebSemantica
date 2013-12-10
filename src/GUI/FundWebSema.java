@@ -210,6 +210,7 @@ public class FundWebSema {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						Logger.log(e.getMessage());
+						
 					}
 			}
 		});
@@ -329,6 +330,8 @@ public class FundWebSema {
 	        }
 				       
 	    } catch (BadLocationException e) {
+	    	e.printStackTrace();
+	    	Logger.log(e.getMessage());
 	    }
 	}	
 	

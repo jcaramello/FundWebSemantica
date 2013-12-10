@@ -71,8 +71,7 @@ public class EndPoint {
 	        e.printStackTrace();
 	        Logger.log(e.getMessage());
 	    }
-	    finally {
-
+	    finally {	       
 	       qe.close();
 	    }	   	   
 	    
