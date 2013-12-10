@@ -118,7 +118,7 @@ public class FundWebSema {
 		frmFundamentosDeLa.getContentPane().setForeground(new Color(30, 144, 255));
 		frmFundamentosDeLa.getContentPane().setBackground(Color.DARK_GRAY);
 		frmFundamentosDeLa.setTitle("Fundamentos de la WebSem\u00E1ntica - Proyecto Final (2013)");
-		frmFundamentosDeLa.setBounds(100, 100, 816, 766);
+		frmFundamentosDeLa.setBounds(100, 100, 816, 726);
 		//frmFundamentosDeLa.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmFundamentosDeLa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -255,7 +255,7 @@ public class FundWebSema {
 		JPanel panel = new JPanel();
 		panel.setSize(new Dimension(798, 498));
 		panel.setBounds(new Rectangle(0, 0, 798, 498));
-		panel.setBounds(10, 182, 777, 495);
+		panel.setBounds(10, 182, 777, 458);
 		mainPnl.add(panel);			
 		panel.setLayout(null);
 				
@@ -269,7 +269,7 @@ public class FundWebSema {
 		textArea.setForeground(Color.BLACK);		
 		
 		JScrollPane resultsPnl = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		resultsPnl.setBounds(new Rectangle(0, 0, 767, 495));
+		resultsPnl.setBounds(new Rectangle(0, 0, 777, 458));
 		panel.add(resultsPnl);
 		
 		JSeparator separator = new JSeparator();
@@ -279,7 +279,7 @@ public class FundWebSema {
 		separator.setForeground(new Color(30, 144, 255));
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 688, 777, 8);
+		separator_1.setBounds(10, 645, 777, 8);
 		mainPnl.add(separator_1);
 		separator_1.setForeground(new Color(30, 144, 255));
 		separator_1.setBackground(new Color(30, 144, 255));
@@ -287,13 +287,13 @@ public class FundWebSema {
 		JLabel lblFundamentosDeLa = new JLabel("Caramello, Leonardo Jos\u00E9 - LU:83767");
 		lblFundamentosDeLa.setForeground(new Color(30, 144, 255));
 		lblFundamentosDeLa.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblFundamentosDeLa.setBounds(559, 688, 228, 30);
+		lblFundamentosDeLa.setBounds(559, 645, 228, 30);
 		mainPnl.add(lblFundamentosDeLa);
 		
 		JLabel label = new JLabel("Fundamentos de la Web Semantica (2013)");
 		label.setForeground(new Color(30, 144, 255));
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label.setBounds(10, 688, 294, 30);
+		label.setBounds(10, 645, 294, 30);
 		mainPnl.add(label);
 	}
 	
