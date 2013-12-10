@@ -223,7 +223,7 @@ public class FundWebSema {
 		txtpnLoremIpsumDolor.setBackground(Color.DARK_GRAY);
 		txtpnLoremIpsumDolor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtpnLoremIpsumDolor.setText("El objtivo de este proyeto final es desarrollar una aplicacion a modo de prueba de concepto donde " + 
-									 "pudiera aplicar los conocimientos adquiridos durante el cursado de la materia Fundamentos de la Web Semantica y que ademas sirviera para comenzar a aprender " +
+									 "poder aplicar los conocimientos y conceptos adquiridos durante el cursado de la materia Fundamentos de la Web Semantica y que ademas sirviera para comenzar a aprender " +
 									 "y familiarizarme con el framework Apache Jena de Apache Foundations.\n\n"+ 
 									 "La aplicacion basicamente consiste en front-end para realizar consultas a DBpedia utilizando SparQL. Para comenzar debe ingresar 1 o mas keywords "+
 									 "y se consultara a BDpedia por cualquier tipo de contenido en el cual se haga referencia a las keywords ingresadas");

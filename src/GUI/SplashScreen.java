@@ -51,31 +51,31 @@ public class SplashScreen extends JFrame {
 				}
 			}
 		});		
+		progressBar.setString("Inicializando Aplicacion");
+		Thread.sleep(500);
 		progressBar.setString("Inicializando Aplicacion.");
 		Thread.sleep(500);
 		progressBar.setString("Inicializando Aplicacion..");
 		Thread.sleep(500);
 		progressBar.setString("Inicializando Aplicacion...");		
 		Thread.sleep(1000);
-		SplashScreen.progressBar.setString("Inizialianzo EndPoints.");
+		SplashScreen.progressBar.setString("Inicializando Apache Jena");
 		Thread.sleep(500);
-		SplashScreen.progressBar.setString("Inizialianzo EndPoints..");
+		SplashScreen.progressBar.setString("Inicializando Apache Jena.");
 		Thread.sleep(500);
-		SplashScreen.progressBar.setString("Inizialianzo EndPoints...");
+		SplashScreen.progressBar.setString("Inicializando Apache Jena..");
 		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inicializando Apache Jena...");
 		Thread.sleep(1000);
-		SplashScreen.progressBar.setString("Inizialianzo GUI.");
+		SplashScreen.progressBar.setString("Inicializando GUI");
 		Thread.sleep(500);
-		SplashScreen.progressBar.setString("Inizialianzo GUI..");
+		SplashScreen.progressBar.setString("Inicializando GUI.");
 		Thread.sleep(500);
-		SplashScreen.progressBar.setString("Inizialianzo GUI...");
+		SplashScreen.progressBar.setString("Inicializando GUI..");
+		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inicializando GUI...");
 		Thread.sleep(1000);
-		SplashScreen.progressBar.setString("Inizialianzo Apache Jena.");
-		Thread.sleep(500);
-		SplashScreen.progressBar.setString("Inizialianzo Apache Jena..");
-		Thread.sleep(500);
-		SplashScreen.progressBar.setString("Inizialianzo Apache Jena...");
-		Thread.sleep(1000);
+		
 		SplashScreen.CurrentSplashScreen.dispose();
 		FundWebSema.main(null);
 	}
