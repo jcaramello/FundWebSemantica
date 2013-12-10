@@ -184,7 +184,7 @@ public class FundWebSema {
 		txtpnLoremIpsumDolor.setText("El objtivo de este proyeto final es desarrollar una aplicacion a modo de prueba de concepto donde" + 
 									 "pudiera aplicar los conocimientos adquiridos sobre la web semantica y que ademas sirviera para comenzar a aprender " +
 									 "y familiarizarme con el framework Apache Jena de Apache Foundations.\n\n"+ 
-									 "La aplicacion basicamente consiste en front-end para realizar consultas a DBpedia utilizando SparQL. PAra comenzar debe ingresar 1 o mas keywords "+
+									 "La aplicacion basicamente consiste en front-end para realizar consultas a DBpedia utilizando SparQL. Para comenzar debe ingresar 1 o mas keywords "+
 									 "y se consultara a BDpedia por cualquier tipo de contenido en el cual se haga referencia a las keywords ingresadas");
 		txtpnLoremIpsumDolor.setBounds(10, 34, 767, 96);
 		intoPnl.add(txtpnLoremIpsumDolor);
