@@ -62,7 +62,7 @@ public class Options extends JDialog {
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setTitle("Opciones");
 		Options.CurrentDialog = this;
-		setBounds(100, 100, 265, 192);
+		setBounds(100, 100, 329, 234);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setForeground(new Color(30, 144, 255));
 		contentPanel.setBackground(Color.DARK_GRAY);
@@ -84,10 +84,10 @@ public class Options extends JDialog {
 			LimitRlts.setColumns(10);
 		}
 		
-		JLabel lblIdioma = new JLabel("Idioma - (es, en, etc..)");
+		JLabel lblIdioma = new JLabel("Idioma - (es, en, fr, etc.)");
 		lblIdioma.setForeground(new Color(30, 144, 255));
 		lblIdioma.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblIdioma.setBounds(10, 66, 389, 25);
+		lblIdioma.setBounds(10, 66, 239, 25);
 		contentPanel.add(lblIdioma);
 		
 		lang = new JTextField();
@@ -99,8 +99,20 @@ public class Options extends JDialog {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(new Color(30, 144, 255));
 		separator.setBackground(new Color(30, 144, 255));
-		separator.setBounds(10, 117, 234, 14);
+		separator.setBounds(10, 159, 303, 14);
 		contentPanel.add(separator);
+		
+		JLabel lblHttpwwwwschoolscomtagsreflanguagecodesasp = new JLabel("http://www.w3schools.com/tags/ref_language_codes.asp");
+		lblHttpwwwwschoolscomtagsreflanguagecodesasp.setForeground(new Color(30, 144, 255));
+		lblHttpwwwwschoolscomtagsreflanguagecodesasp.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblHttpwwwwschoolscomtagsreflanguagecodesasp.setBounds(10, 128, 303, 20);
+		contentPanel.add(lblHttpwwwwschoolscomtagsreflanguagecodesasp);
+		
+		JLabel lblParaMasInformacion = new JLabel("Para mas informacion acerca de los codigos de idioma visitar:");
+		lblParaMasInformacion.setForeground(new Color(30, 144, 255));
+		lblParaMasInformacion.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblParaMasInformacion.setBounds(10, 114, 303, 20);
+		contentPanel.add(lblParaMasInformacion);
 		String[] endpoints = Application.getEndPoints();
 		DefaultListModel<String> model = new DefaultListModel<>();
 		
