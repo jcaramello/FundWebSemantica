@@ -37,7 +37,7 @@ public class EndPoint {
 							 "}Limit %d";
 	    
 	    */
-			 
+		// QUery para dbpedia, la otra es mas ineficiente pero es gral	 
 		String queryString = 			
 					"select  ?o1 " +
 					"where "+ 
@@ -47,13 +47,13 @@ public class EndPoint {
 								"?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( %s ) '. "+ 
 							"} "+ 
 						"} "+ 
-						"FILTER(LANG(?o1)='es') "+
+						"FILTER(LANG(?o1)='%s') "+
 					"} Limit %d";
 		 
 					
 		//STEFANO AND DI AND ALFREDO
 		String formatedKeywords = CommonHelper.join(keywords, " AND ");
-	    queryString =  String.format(queryString, formatedKeywords, Application.LimitResults);
+	    queryString =  String.format(queryString, formatedKeywords,Application.LANG, Application.LimitResults);
 	    
 	    try {
 	    	Query query = QueryFactory.create(queryString);	    	
@@ -63,7 +63,7 @@ public class EndPoint {
 	    	while(resultSet.hasNext()){
 
 	            QuerySolution sol = (QuerySolution) resultSet.next();	           
-	            results.add(sol.get("?o1").toString().replaceAll("@es", ""));	            	          	            	    
+	            results.add(sol.get("?o1").toString().replaceAll("@"+Application.LANG, ""));	            	          	            	    
 			}	
 	      
 	    }catch(Exception e){

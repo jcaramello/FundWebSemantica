@@ -42,6 +42,8 @@ public class Application {
 	
 	public static int LimitResults = 100;
 	
+	public static String LANG = "es";
+	
 	/**
 	 * False: se lee desde un archivo (operatoria normal); true: se lee desde un String, para testear más cómodamente.	
 	 */

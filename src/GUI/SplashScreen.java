@@ -22,12 +22,24 @@ public class SplashScreen extends JFrame {
 	public static JFrame CurrentSplashScreen;
 
 	private JPanel contentPane;
-
+	public static JProgressBar progressBar;
+	
 	/**
 	 * Launch the application.
 	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException {		
+		UIManager.put("ProgressBar.background", Color.WHITE); //colour of the background
+        UIManager.put("ProgressBar.foreground", new Color(50, 205, 50)); //colour of progress bar
+        UIManager.put("ProgressBar.selectionBackground",new Color(30, 144, 255)); //colour of percentage counter on black background
+        UIManager.put("ProgressBar.selectionForeground",Color.DARK_GRAY); //colour of precentage counter on red background
+        
+        progressBar = new JProgressBar();
+		progressBar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		progressBar.setStringPainted(true);				
+		progressBar.setIndeterminate(true);
+		progressBar.setBounds(10, 90, 430, 30);
+        
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -38,9 +50,32 @@ public class SplashScreen extends JFrame {
 					e.printStackTrace();
 				}
 			}
-		});
-		
-		Thread.sleep(2000);
+		});		
+		progressBar.setString("Inicializando Aplicacion.");
+		Thread.sleep(500);
+		progressBar.setString("Inicializando Aplicacion..");
+		Thread.sleep(500);
+		progressBar.setString("Inicializando Aplicacion...");		
+		Thread.sleep(1000);
+		SplashScreen.progressBar.setString("Inizialianzo EndPoints.");
+		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inizialianzo EndPoints..");
+		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inizialianzo EndPoints...");
+		Thread.sleep(500);
+		Thread.sleep(1000);
+		SplashScreen.progressBar.setString("Inizialianzo GUI.");
+		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inizialianzo GUI..");
+		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inizialianzo GUI...");
+		Thread.sleep(1000);
+		SplashScreen.progressBar.setString("Inizialianzo Apache Jena.");
+		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inizialianzo Apache Jena..");
+		Thread.sleep(500);
+		SplashScreen.progressBar.setString("Inizialianzo Apache Jena...");
+		Thread.sleep(1000);
 		SplashScreen.CurrentSplashScreen.dispose();
 		FundWebSema.main(null);
 	}
@@ -69,19 +104,7 @@ public class SplashScreen extends JFrame {
 		lblProyectoFinal.setForeground(new Color(30, 144, 255));
 		lblProyectoFinal.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblProyectoFinal.setBounds(135, 38, 174, 30);
-		contentPane.add(lblProyectoFinal);
-		
-		UIManager.put("ProgressBar.background", Color.WHITE); //colour of the background
-        UIManager.put("ProgressBar.foreground", new Color(50, 205, 50)); //colour of progress bar
-        UIManager.put("ProgressBar.selectionBackground",new Color(30, 144, 255)); //colour of percentage counter on black background
-        UIManager.put("ProgressBar.selectionForeground",Color.LIGHT_GRAY); //colour of precentage counter on red background
-		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		progressBar.setStringPainted(true);
-		progressBar.setString("Cargando...");
-		progressBar.setIndeterminate(true);
-		progressBar.setBounds(10, 90, 430, 30);
+		contentPane.add(lblProyectoFinal);					
 		contentPane.add(progressBar);
 		
 		JLabel lblJoseCaramello = new JLabel("Jose Caramello - LU:83767");

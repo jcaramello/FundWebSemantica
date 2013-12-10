@@ -151,6 +151,16 @@ public class FundWebSema {
 				FundWebSema.CurrentWindow.close();
 			}
 		});
+		
+		JMenuItem mntmOpciones = new JMenuItem("Opciones");
+		mntmOpciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Options.CurrentDialog == null)
+					Options.main(null);
+				else Options.CurrentDialog.setVisible(true);
+			}
+		});
+		mnFile.add(mntmOpciones);
 		mnFile.add(mntmCerrrar);
 		
 		JMenu mnHelp = new JMenu("Ayuda");
@@ -158,9 +168,23 @@ public class FundWebSema {
 		menuBar.add(mnHelp);
 		
 		JMenuItem mntmModoDeUso = new JMenuItem("Modo de uso");
+		mntmModoDeUso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(ModoDeUso.CurrentDialog == null)
+					ModoDeUso.main(null);
+				else ModoDeUso.CurrentDialog.setVisible(true);
+			}
+		});
 		mnHelp.add(mntmModoDeUso);
 		
 		JMenuItem mntmAcercaDe = new JMenuItem("Acerca de");
+		mntmAcercaDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(AcercaDe.CurrentDialog == null)
+					AcercaDe.main(null);
+				else AcercaDe.CurrentDialog.setVisible(true);
+			}
+		});
 		mnHelp.add(mntmAcercaDe);
 		frmFundamentosDeLa.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -180,7 +204,13 @@ public class FundWebSema {
 			public void keyReleased(KeyEvent arg0) {
 				int key = arg0.getKeyCode();
 				if(key == KeyEvent.VK_ENTER)
-					search();
+					try {
+						search();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						Logger.log(e.getMessage());
+					}
 			}
 		});
 		textField.setBounds(10, 138, 668, 20);
@@ -191,8 +221,8 @@ public class FundWebSema {
 		txtpnLoremIpsumDolor.setForeground(new Color(30, 144, 255));
 		txtpnLoremIpsumDolor.setBackground(Color.DARK_GRAY);
 		txtpnLoremIpsumDolor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtpnLoremIpsumDolor.setText("El objtivo de este proyeto final es desarrollar una aplicacion a modo de prueba de concepto donde" + 
-									 "pudiera aplicar los conocimientos adquiridos sobre la web semantica y que ademas sirviera para comenzar a aprender " +
+		txtpnLoremIpsumDolor.setText("El objtivo de este proyeto final es desarrollar una aplicacion a modo de prueba de concepto donde " + 
+									 "pudiera aplicar los conocimientos adquiridos durante el cursado de la materia Fundamentos de la Web Semantica y que ademas sirviera para comenzar a aprender " +
 									 "y familiarizarme con el framework Apache Jena de Apache Foundations.\n\n"+ 
 									 "La aplicacion basicamente consiste en front-end para realizar consultas a DBpedia utilizando SparQL. Para comenzar debe ingresar 1 o mas keywords "+
 									 "y se consultara a BDpedia por cualquier tipo de contenido en el cual se haga referencia a las keywords ingresadas");
@@ -204,7 +234,13 @@ public class FundWebSema {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				search();				
+				try {
+					search();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Logger.log(e.getMessage());
+				}				
 			}
 		});
 		btnBuscar.setBounds(688, 137, 89, 23);
@@ -266,12 +302,13 @@ public class FundWebSema {
 		frmFundamentosDeLa.dispose();
 	}
 	
-	public void showLoadingMask(){
+	public void showLoadingMask() throws InterruptedException{
 		LoadingMask.main(this.frmFundamentosDeLa);
 	}
 	
 	public void hideLoadingMask(){
 		LoadingMask.CurrentWindow.dispose();
+		LoadingMask.buscando = false;
 	}
 	
 	public static void highlight(JTextComponent textComp, String pattern) {
@@ -295,31 +332,36 @@ public class FundWebSema {
 	    }
 	}	
 	
-	public void search(){
+	public void search() throws InterruptedException{
 		
-		textArea.setText("");
-		searchBtn.setEnabled(false);
-		FundWebSema.CurrentWindow.showLoadingMask();								
-	    Runnable r = new Runnable() {
-			public void run() {
-				try {
-					String[] keywords = textField.getText().split(" ");
-					List<String> results = EndPoint.main(Arrays.asList(keywords));	
-					textArea.setText(CommonHelper.joinResults(results));
-					
-					for (String pattern : keywords) {
-						highlight(textArea, pattern);	
+		if(!textField.getText().equals(""))
+		{
+			textArea.setText("");
+			searchBtn.setEnabled(false);
+			FundWebSema.CurrentWindow.showLoadingMask();								
+		    Runnable r = new Runnable() {
+				public void run() {
+					try {
+						String[] keywords = textField.getText().split(" ");
+						List<String> results = EndPoint.main(Arrays.asList(keywords));	
+						textArea.setText(CommonHelper.joinResults(results));
+						
+						for (String pattern : keywords) {
+							highlight(textArea, pattern);	
+						}
+						
+						FundWebSema.CurrentWindow.hideLoadingMask();
+						searchBtn.setEnabled(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+						Logger.log(e.getMessage());
+						
 					}
-					
-					FundWebSema.CurrentWindow.hideLoadingMask();
-					searchBtn.setEnabled(true);
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-			}
-	     };
-	     
-	     ExecutorService executor = Executors.newCachedThreadPool();
-	     executor.submit(r);				
+		     };
+		     
+		     ExecutorService executor = Executors.newCachedThreadPool();
+		     executor.submit(r);	
+		}
 	}
 }

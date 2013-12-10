@@ -28,15 +28,13 @@ import common.Logger;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dialog.ModalExclusionType;
+import javax.swing.JSeparator;
 
-public class ConfigurarEndPoints extends JDialog {
+public class AcercaDe extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	
-	public static ConfigurarEndPoints CurrentDialog;
-	private JTextField newEndpoint;
-	
-	public JList<String> list;
+	public static AcercaDe CurrentDialog;
 	public JLabel lblIngreseLosEndpoints;
 
 	/**
@@ -44,7 +42,7 @@ public class ConfigurarEndPoints extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			ConfigurarEndPoints dialog = new ConfigurarEndPoints();
+			AcercaDe dialog = new AcercaDe();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -56,13 +54,13 @@ public class ConfigurarEndPoints extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public ConfigurarEndPoints() throws IOException {
+	public AcercaDe() throws IOException {
 		setResizable(false);
 		setModal(true);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		setTitle("Configurar EndPoints");
-		ConfigurarEndPoints.CurrentDialog = this;
-		setBounds(100, 100, 450, 300);
+		setTitle("Acerca de ...");
+		AcercaDe.CurrentDialog = this;
+		setBounds(100, 100, 452, 197);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setForeground(new Color(30, 144, 255));
 		contentPanel.setBackground(Color.DARK_GRAY);
@@ -70,53 +68,45 @@ public class ConfigurarEndPoints extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);		
 		{
-			lblIngreseLosEndpoints = new JLabel("Ingrese los endpoints a los que desea conectarse:");
+			lblIngreseLosEndpoints = new JLabel("Universidad Nacional del Sur");
 			lblIngreseLosEndpoints.setForeground(new Color(30, 144, 255));
 			lblIngreseLosEndpoints.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblIngreseLosEndpoints.setBounds(10, 11, 389, 25);
+			lblIngreseLosEndpoints.setBounds(126, 11, 187, 25);
 			contentPanel.add(lblIngreseLosEndpoints);
 		}
+		
+		JLabel lblIdioma = new JLabel("Fundamentos de la Web Semantica - 2\u00B0 Cuatrimestre del 2013");
+		lblIdioma.setForeground(new Color(30, 144, 255));
+		lblIdioma.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblIdioma.setBounds(22, 34, 389, 25);
+		contentPanel.add(lblIdioma);
 		{
-			newEndpoint = new JTextField();
-			newEndpoint.setEnabled(false);
-			newEndpoint.setBounds(10, 33, 325, 20);
-			contentPanel.add(newEndpoint);
-			newEndpoint.setColumns(10);
+			JLabel lblTrabajoFinal = new JLabel("Trabajo Final - Caramello, Leonardo Jose (LU:83767)");
+			lblTrabajoFinal.setForeground(new Color(30, 144, 255));
+			lblTrabajoFinal.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblTrabajoFinal.setBounds(63, 58, 319, 25);
+			contentPanel.add(lblTrabajoFinal);
 		}
-		
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setEnabled(false);
-		
-		btnAgregar.setBounds(345, 32, 89, 23);
-		contentPanel.add(btnAgregar);
-		
-		list = new JList<String>();											
-		list.setEnabled(false);
+		{
+			JSeparator separator = new JSeparator();
+			separator.setForeground(new Color(30, 144, 255));
+			separator.setBackground(new Color(30, 144, 255));
+			separator.setBounds(22, 122, 408, 14);
+			contentPanel.add(separator);
+		}
+		{
+			JLabel lblJosecaramellogmailcom = new JLabel("josecaramello@gmail.com");
+			lblJosecaramellogmailcom.setForeground(new Color(30, 144, 255));
+			lblJosecaramellogmailcom.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblJosecaramellogmailcom.setBounds(132, 83, 160, 25);
+			contentPanel.add(lblJosecaramellogmailcom);
+		}
 		String[] endpoints = Application.getEndPoints();
 		DefaultListModel<String> model = new DefaultListModel<>();
 		
 		for (String endpoint : endpoints) {
 			model.addElement(endpoint);
 		}
-		
-		list.setModel(model);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setVisibleRowCount(10);
-		list.setBounds(10, 64, 424, 154);
-		
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					ConfigurarEndPoints.CurrentDialog.addEndpoint();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					Logger.log(e.getMessage());
-				}
-			}
-		});
-		
-		contentPanel.add(list);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(Color.DARK_GRAY);
@@ -128,30 +118,14 @@ public class ConfigurarEndPoints extends JDialog {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 						
-						ConfigurarEndPoints.CurrentDialog.setVisible(false);
+						AcercaDe.CurrentDialog.setVisible(false);
 					}
 				});
-				
-				JButton btnBorrar = new JButton("Borrar");
-				btnBorrar.setEnabled(false);
-				buttonPane.add(btnBorrar);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
 		this.setLocationRelativeTo(null);
 	}
-	
-	public void addEndpoint() throws IOException{
-		DefaultListModel<String> model = (DefaultListModel<String>)list.getModel();
-		if(!newEndpoint.getText().equals("")){
-			model.addElement(newEndpoint.getText());
-			
-			
-			list.setModel(model);
-			list.repaint();
-			Application.SaveEndpoint(newEndpoint.getText());
-			newEndpoint.setText("");
-		}
-	}
+		
 }

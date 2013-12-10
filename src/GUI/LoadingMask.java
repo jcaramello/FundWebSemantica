@@ -27,6 +27,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -38,18 +40,34 @@ public class LoadingMask extends JDialog {
 	protected JPanel contentPane;
 	public static LoadingMask CurrentWindow;
 	public static JFrame ParentWindow;
-
+	public static JProgressBar progressBar;
+	public static boolean buscando;
+	
 	/**
 	 * Launch the application.
+	 * @throws InterruptedException 
 	 */
-	public static void main(JFrame parent) {
+	public static void main(JFrame parent) throws InterruptedException {
 		LoadingMask.ParentWindow = parent;
-		EventQueue.invokeLater(new Runnable() {
+		UIManager.put("ProgressBar.background", Color.WHITE); //colour of the background
+        UIManager.put("ProgressBar.foreground", new Color(50, 205, 50)); //colour of progress bar
+        UIManager.put("ProgressBar.selectionBackground",new Color(30, 144, 255)); //colour of percentage counter on black background
+        UIManager.put("ProgressBar.selectionForeground",Color.DARK_GRAY); //colour of precentage counter on red background
+		
+        progressBar = new JProgressBar();
+		progressBar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		progressBar.setString("Buscando...");
+		progressBar.setStringPainted(true);
+		progressBar.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		progressBar.setIndeterminate(true);
+		progressBar.setBounds(48, 46, 362, 28);
+		buscando = true;
+		Runnable r = new Runnable() {
 			public void run() {
 				try {					
 					LoadingMask frame = new LoadingMask();
 					LoadingMask.CurrentWindow = frame;
-					LoadingMask.CurrentWindow.setVisible(true);	
+					LoadingMask.CurrentWindow.setVisible(true);						
 				} catch (Exception e) {
 					e.printStackTrace();
 					Logger.log(e.getMessage());					
@@ -58,7 +76,30 @@ public class LoadingMask extends JDialog {
 					Logger.close();
 				}
 			}
-		});					
+		};	
+		
+		ExecutorService executor = Executors.newCachedThreadPool();
+		executor.submit(r);		
+		
+		Runnable r2 = new Runnable() {
+			public void run() {
+				while(buscando){					
+					try {
+						progressBar.setString("Buscando.");
+						Thread.sleep(500);
+						progressBar.setString("Buscando..");
+						Thread.sleep(500);
+						progressBar.setString("Buscando...");
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}										
+				}
+			}
+		};	
+		executor.submit(r2);		
+			
 	}
 
 	/**
@@ -83,19 +124,7 @@ public class LoadingMask extends JDialog {
 		contentPane.setBackground(Color.DARK_GRAY);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		UIManager.put("ProgressBar.background", Color.WHITE); //colour of the background
-        UIManager.put("ProgressBar.foreground", new Color(50, 205, 50)); //colour of progress bar
-        UIManager.put("ProgressBar.selectionBackground",new Color(30, 144, 255)); //colour of percentage counter on black background
-        UIManager.put("ProgressBar.selectionForeground",Color.DARK_GRAY); //colour of precentage counter on red background
-		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		progressBar.setString("Buscando...");
-		progressBar.setStringPainted(true);
-		progressBar.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-		progressBar.setIndeterminate(true);
-		progressBar.setBounds(48, 46, 362, 28);
+				
 		contentPane.add(progressBar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
