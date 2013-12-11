@@ -1,17 +1,6 @@
-2013/12/11 00:09:24 :: Iniciando Applicacion
-2013/12/11 00:09:59 :: Ejecutando consulta
-2013/12/11 00:09:59 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( di AND caprio ) '. } } FILTER(LANG(?o1)='en') } Limit 100
-2013/12/11 00:10:11 :: Ejecutando consulta
-2013/12/11 00:10:11 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( leonardo AND di AND caprio ) '. } } FILTER(LANG(?o1)='en') } Limit 100
-2013/12/11 00:10:15 :: Ejecutando consulta
-2013/12/11 00:10:15 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( di AND caprio ) '. } } FILTER(LANG(?o1)='en') } Limit 100
-2013/12/11 00:10:25 :: Ejecutando consulta
-2013/12/11 00:10:25 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( jordan ) '. } } FILTER(LANG(?o1)='en') } Limit 100
-2013/12/11 00:10:43 :: Ejecutando consulta
-2013/12/11 00:10:43 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( 11 AND december ) '. } } FILTER(LANG(?o1)='en') } Limit 100
-2013/12/11 00:10:43 :: Error making the query, see cause for details
-2013/12/11 00:10:51 :: Ejecutando consulta
-2013/12/11 00:10:51 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( costa AND rica ) '. } } FILTER(LANG(?o1)='en') } Limit 100
-2013/12/11 00:11:08 :: Ejecutando consulta
-2013/12/11 00:11:08 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( Brazil ) '. } } FILTER(LANG(?o1)='en') } Limit 100
-2013/12/11 00:11:20 :: Finalizando Applicacion
+2013/12/11 00:14:31 :: Iniciando Applicacion
+2013/12/11 00:14:39 :: Ejecutando consulta
+2013/12/11 00:14:39 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( sarasa AND sarasa ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 00:14:52 :: Ejecutando consulta
+2013/12/11 00:14:52 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( messi ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 00:15:06 :: Finalizando Applicacion

@@ -73,6 +73,7 @@ public class Logger {
 			else {								
 				getCurrentLogger().bufferedWriter.write(msg);
 				getCurrentLogger().bufferedWriter.write(NEW_LINE);
+				getCurrentLogger().bufferedWriter.flush();
 			}
 		} catch (IOException e) {
 			if(Application.isVerbose){
@@ -99,6 +100,7 @@ public class Logger {
 			else {
 				getCurrentLogger().bufferedWriter.write(msg);
 				getCurrentLogger().bufferedWriter.write(NEW_LINE);
+				getCurrentLogger().bufferedWriter.flush();
 			}
 		} catch (IOException e) {
 			if(Application.isVerbose){
