@@ -68,6 +68,8 @@ import java.awt.Rectangle;
 import java.awt.ComponentOrientation;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class FundWebSema {
 
@@ -83,7 +85,7 @@ public class FundWebSema {
 	 */
 	public static void main(String[] args) {				
 		Application.Initialize(args);
-					
+		Logger.log("Iniciando Applicacion");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -96,10 +98,10 @@ public class FundWebSema {
 					Logger.log(e.getMessage());					
 				}
 				finally{
-					Logger.close();
+					
 				}
 			}
-		});
+		});				
 	}
 
 	/**
@@ -114,6 +116,19 @@ public class FundWebSema {
 	 */
 	private void initialize() {
 		frmFundamentosDeLa = new JFrame();
+		frmFundamentosDeLa.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				Logger.log("Finalizando Applicacion");
+				Logger.close();				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Logger.log("Finalizando Applicacion");
+				Logger.close();				
+			}
+		});
 		frmFundamentosDeLa.setResizable(false);
 		frmFundamentosDeLa.getContentPane().setForeground(new Color(30, 144, 255));
 		frmFundamentosDeLa.getContentPane().setBackground(Color.DARK_GRAY);

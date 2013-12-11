@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Logger
@@ -59,7 +62,11 @@ public class Logger {
 	 * @param msg
 	 */
 	public static void log(String msg)
-	{
+	{		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();	
+		msg = String.format("%s :: %s", dateFormat.format(cal.getTime()), msg);
+		
 		try {
 			if(Application.logType == LogType.Console)
 				System.out.println(msg);
@@ -80,8 +87,12 @@ public class Logger {
 	 * @param msg
 	 */
 	public static void log(String format, String... args)
-	{
+	{		
 		String msg = String.format(format, args);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();	
+		msg = String.format("%s :: %s", dateFormat.format(cal.getTime()), msg);
+		
 		try {
 			if(Application.logType == LogType.Console)
 				System.out.println(msg);
@@ -141,6 +152,7 @@ public class Logger {
 		if(Application.logType == LogType.File)
 			try {
 				getCurrentLogger().bufferedWriter.close();
+				current = null;
 			} catch (IOException e) {
 				if(Application.isVerbose){
 					System.out.println(e.getMessage());

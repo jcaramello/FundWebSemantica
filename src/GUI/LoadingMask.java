@@ -72,9 +72,6 @@ public class LoadingMask extends JDialog {
 					e.printStackTrace();
 					Logger.log(e.getMessage());					
 				}
-				finally{
-					Logger.close();
-				}
 			}
 		};	
 		

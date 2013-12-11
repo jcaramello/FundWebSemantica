@@ -54,8 +54,10 @@ public class EndPoint {
 		//STEFANO AND DI AND ALFREDO
 		String formatedKeywords = CommonHelper.join(keywords, " AND ");
 	    queryString =  String.format(queryString, formatedKeywords,Application.LANG, Application.LimitResults);
+	    Logger.log("Ejecutando consulta");
+	    Logger.log(queryString);
 	    
-	    try {
+	    try {	    	
 	    	Query query = QueryFactory.create(queryString);	    	
 	    	qe = new QueryEngineHTTP(service, query);	    	
 	    	ResultSet resultSet = qe.execSelect();
@@ -64,8 +66,7 @@ public class EndPoint {
 
 	            QuerySolution sol = (QuerySolution) resultSet.next();	           
 	            results.add(sol.get("?o1").toString().replaceAll("@"+Application.LANG, ""));	            	          	            	    
-			}	
-	      
+			}		     	    
 	    }catch(Exception e){
 
 	        e.printStackTrace();

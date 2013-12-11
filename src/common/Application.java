@@ -87,10 +87,7 @@ public class Application {
 	 */
 	public static void Initialize(String args[]){				
 		Application.Name = "FundWebSema";			
-		Application.logType = LogType.File;
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Calendar cal = Calendar.getInstance();	
-		Logger.log(String.format("%s :: Iniciando Applicacion", dateFormat.format(cal.getTime())));	
+		Application.logType = LogType.File;					
 	}
 	
 	public static String[] getEndPoints() throws IOException{
