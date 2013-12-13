@@ -1,2 +1,11 @@
-Iniciando Applicacion
-Finalizando Applicacion
+2013/12/12 23:45:59 :: Iniciando Applicacion
+2013/12/12 23:46:05 :: Ejecutando consulta
+2013/12/12 23:46:05 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( "mandela" AND "museo" AND "1918" ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/12 23:46:21 :: Ejecutando consulta
+2013/12/12 23:46:21 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( "mandela" AND "nelson" ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/12 23:46:46 :: Ejecutando consulta
+2013/12/12 23:46:46 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( "mandela" AND "nelson" AND "parlamento" AND "libertad" AND "anatoli" ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/12 23:47:11 :: Ejecutando consulta
+2013/12/12 23:47:11 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( "mandela" AND "nelson" AND "parlamento" AND "libertad" AND "anatoli" AND "messi" ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/12 23:47:21 :: Ejecutando consulta
+2013/12/12 23:47:21 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( "david" AND "beckham" ) '. } } FILTER(LANG(?o1)='es') } Limit 100

@@ -1,6 +1,29 @@
-2013/12/11 00:14:31 :: Iniciando Applicacion
-2013/12/11 00:14:39 :: Ejecutando consulta
-2013/12/11 00:14:39 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( sarasa AND sarasa ) '. } } FILTER(LANG(?o1)='es') } Limit 100
-2013/12/11 00:14:52 :: Ejecutando consulta
-2013/12/11 00:14:52 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( messi ) '. } } FILTER(LANG(?o1)='es') } Limit 100
-2013/12/11 00:15:06 :: Finalizando Applicacion
+2013/12/11 03:51:53 :: Iniciando Applicacion
+2013/12/11 03:52:10 :: Ejecutando consulta
+2013/12/11 03:52:10 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( iglesia AND maradona AND diego ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:52:18 :: Ejecutando consulta
+2013/12/11 03:52:18 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( iglesia AND maradona AND diego AND parodia ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:52:26 :: Ejecutando consulta
+2013/12/11 03:52:26 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( iglesia AND maradona AND diego AND parodia AND argentina ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:52:28 :: Ejecutando consulta
+2013/12/11 03:52:28 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( iglesia AND maradona AND diego AND parodia AND argentino ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:52:38 :: Ejecutando consulta
+2013/12/11 03:52:38 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( iglesia AND maradona ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:52:53 :: Ejecutando consulta
+2013/12/11 03:52:53 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( iglesia AND maradona AND chuck AND norris ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:53:27 :: Ejecutando consulta
+2013/12/11 03:53:27 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( alá ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:53:28 :: Error making the query, see cause for details
+2013/12/11 03:53:30 :: Ejecutando consulta
+2013/12/11 03:53:30 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( ala ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:53:43 :: Ejecutando consulta
+2013/12/11 03:53:43 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( manu AND ginobilli ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:53:47 :: Ejecutando consulta
+2013/12/11 03:53:47 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( manu AND ginobi ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:53:50 :: Ejecutando consulta
+2013/12/11 03:53:50 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( manu ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:54:05 :: Ejecutando consulta
+2013/12/11 03:54:05 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( ginobili ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:54:17 :: Ejecutando consulta
+2013/12/11 03:54:17 :: select  ?o1 where { { graph ?g { ?s1 ?s1textp ?o1 . ?o1 <bif:contains> ' ( ginobili AND victoriano ) '. } } FILTER(LANG(?o1)='es') } Limit 100
+2013/12/11 03:54:33 :: Finalizando Applicacion

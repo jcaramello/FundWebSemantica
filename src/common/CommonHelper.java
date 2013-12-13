@@ -32,11 +32,11 @@ public class CommonHelper {
 		if(surrounded == null) surrounded = "";
 		if (s == null || s.isEmpty()) return "";
 	    Iterator<String> iter = s.iterator();
-	    StringBuilder builder = new StringBuilder(surrounded + iter.next() + surrounded);
+	    StringBuilder builder = new StringBuilder(surrounded +"\""+ iter.next() +"\""+ surrounded);
 	    while( iter.hasNext() )
 	    {
 	    	
-	        builder.append(delimiter).append(surrounded).append(iter.next()).append(surrounded);
+	        builder.append(delimiter).append(surrounded).append("\"").append(iter.next()).append("\"").append(surrounded);
 	    }
 	    return builder.toString();
 	}

@@ -70,7 +70,7 @@ public class EndPoint {
 	    }catch(Exception e){
 
 	        e.printStackTrace();
-	        Logger.log(e.getMessage());
+	        Logger.log(e.getMessage());	        
 	    }
 	    finally {	       
 	       qe.close();
